@@ -1,0 +1,98 @@
+/* Overall body styling */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial;
+  background: #121212;
+  color: #cfc1ff;
+  height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Particles.js background */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Container styling */
+.container {
+  position: relative;
+  z-index: 1;
+  background: rgba(28, 28, 36, 1);
+  padding: 50px 40px;
+  border-radius: 19px;
+  box-shadow: 0 0 45px #000;
+  width: 45%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* Controls (search bar and button) */
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Link Input */
+input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #2a2737;
+  color: white;
+  transition: 0.7s ease;
+}
+
+/* Remove the white outline when the input is focused */
+input[type="text"]:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Add Link Button */
+button {
+  background-color: #9c5eff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.7s ease;
+}
+
+button:hover:enabled {
+  background-color: #b28dff;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+m1 {
+  font-size: 14px;
+  color: #ff6b6b;
+}
+
+/* Error message styling */
+.error {
+  transition: 2s ease;
+  color: #ff6b6b;
+  font-size: 14px;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
