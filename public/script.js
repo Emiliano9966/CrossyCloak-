@@ -1,4 +1,4 @@
-// Load particles.js
+// Load particles.js background
 particlesJS('particles-js', {
   particles: {
     number: { value: 60 },
@@ -28,7 +28,6 @@ particlesJS('particles-js', {
   }
 });
 
-// Open entered URL in a new tab with iframe
 function openInBlank() {
   const url = document.getElementById("urlInput").value.trim();
   const error = document.getElementById("error");
