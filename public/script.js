@@ -1,3 +1,4 @@
+// Load particles.js
 particlesJS('particles-js', {
   particles: {
     number: { value: 60 },
@@ -21,35 +22,31 @@ particlesJS('particles-js', {
       onclick: { enable: true, mode: 'push' }
     },
     modes: {
-      grab: { distance: 200, line_linked: { opacity: 0.5 }},
+      grab: { distance: 200, line_linked: { opacity: 0.5 } },
       push: { particles_nb: 4 }
     }
   }
 });
 
+// Open entered URL in a new tab with iframe
 function openInBlank() {
-  const input = document.getElementById("urlInput");
+  const url = document.getElementById("urlInput").value.trim();
   const error = document.getElementById("error");
-  const url = input.value.trim();
 
-  try {
-    const safeUrl = new URL(url);
-    if (!["http:", "https:"].includes(safeUrl.protocol)) throw new Error();
-    error.classList.add("hidden");
-
-    const newWindow = window.open("about:blank", "_blank", "noopener");
-    if (!newWindow) return alert("Popup blocked!");
-
-    newWindow.document.write(`
-      <!DOCTYPE html>
-      <html><head><title>Loading...</title></head>
-      <body style="margin:0;overflow:hidden;background:#000;">
-        <iframe src="/proxy?url=${encodeURIComponent(safeUrl.href)}" style="width:100vw;height:100vh;border:none;"></iframe>
-      </body></html>
-    `);
-    newWindow.document.close();
-  } catch {
-    error.textContent = "❌ Invalid URL!";
+  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+    error.textContent = "Invalid URL! Please use http or https.";
     error.classList.remove("hidden");
+    return;
+  }
+
+  error.classList.add("hidden");
+
+  const newWindow = window.open("about:blank", "_blank");
+  if (newWindow) {
+    newWindow.document.write(`
+      <iframe src="${url}" style="border:none;width:100vw;height:100vh;"></iframe>
+    `);
+  } else {
+    alert("Popup blocked. Please allow popups for this site.");
   }
 }
