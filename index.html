@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blank Link Opener</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- Include Particles.js -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crossy Cloak</title>
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
 <body>
   <!-- Particles.js container -->
-  <div id="particles-js"></div>
-  
-  <div class="container">
+  <div id="particles-js" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+
+  <div class="container" style="position: relative; z-index: 10;">
     <h2>🔍Crossy Cloak</h2>
     <div class="controls">
-      <input type="text" id="urlInput" placeholder="Enter URL">
+      <input type="text" id="urlInput" placeholder="Enter URL" />
       <button onclick="openInBlank()">Open</button>
     </div>
-    <m1>
-      Currently Limited To Sites.
-    </m1>
-    <div id="error" class="error hidden"></div>
+    <p>Currently Buggy.</p>
+    <div id="error" class="error" style="display: none;"></div>
   </div>
+
+  <!-- Initialize particles.js -->
+  <script>
+    particlesJS.load('particles-js', 'particles.json', function () {
+      console.log('Particles.js loaded.');
+    });
+  </script>
 
   <script src="script.js"></script>
 </body>
