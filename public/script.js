@@ -1,38 +1,9 @@
-particlesJS('particles-js', {
-  particles: {
-    number: { value: 60 },
-    color: { value: '#9c5eff' },
-    shape: { type: 'circle' },
-    opacity: { value: 0.5 },
-    size: { value: 3 },
-    line_linked: {
-      enable: true,
-      distance: 150,
-      color: '#9c5eff',
-      opacity: 0.4,
-      width: 1
-    },
-    move: { enable: true, speed: 2 }
-  },
-  interactivity: {
-    detect_on: 'canvas',
-    events: {
-      onhover: { enable: true, mode: 'grab' },
-      onclick: { enable: true, mode: 'push' }
-    },
-    modes: {
-      grab: { distance: 200, line_linked: { opacity: 0.5 }},
-      push: { particles_nb: 4 }
-    }
-  }
-});
-
 function openInBlank() {
   const url = document.getElementById("urlInput").value.trim();
   const error = document.getElementById("error");
 
   if (!url || !isValidUrl(url)) {
-    error.textContent = "Invalid URL!";
+    error.textContent = "Please enter a valid URL!";
     error.style.display = "block";
     return;
   }
@@ -44,7 +15,7 @@ function openInBlank() {
     win.document.write(`
       <html>
         <head>
-          <title>about:blank</title>
+          <title>Loading...</title>
           <style>
             html, body {
               margin: 0;
@@ -79,4 +50,3 @@ function isValidUrl(string) {
     return false;
   }
 }
-
