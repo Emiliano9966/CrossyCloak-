@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crossy Cloak</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+</head>
+<body>
+  <!-- Particle background -->
+  <div id="particles-js" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"></div>
+
+  <!-- Main content -->
+  <div class="container" style="position: relative; z-index: 10;">
+    <h2>🔍Crossy Cloak</h2>
+    <div class="controls">
+      <input type="text" id="urlInput" placeholder="Enter URL" />
+      <button onclick="openInBlank()">Open</button>
+    </div>
+    <p>Currently Buggy.</p>
+    <div id="error" class="error" style="display: none;"></div>
+  </div>
+
+  <!-- Your JS -->
+  <script src="/script.js"></script>
+
+  <!-- Particle config -->
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80 },
+        size: { value: 3 },
+        color: { value: "#ffffff" },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#ffffff",
+          opacity: 0.4,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 3
+        }
+      },
+      interactivity: {
+        events: {
+          onhover: { enable: true, mode: "repulse" }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
