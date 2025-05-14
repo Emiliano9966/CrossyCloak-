@@ -1,53 +1,121 @@
+// Initialize particles.js
+particlesJS('particles-js', {
+  particles: {
+    number: { value: 60 },
+    color: { value: '#9c5eff' },
+    shape: { type: 'circle' },
+    opacity: { value: 0.5 },
+    size: { value: 3 },
+    line_linked: {
+      enable: true,
+      distance: 150,
+      color: '#9c5eff',
+      opacity: 0.4,
+      width: 1
+    },
+    move: { enable: true, speed: 2 }
+  },
+  interactivity: {
+    detect_on: 'canvas',
+    events: {
+      onhover: { enable: true, mode: 'grab' },
+      onclick: { enable: true, mode: 'push' }
+    },
+    modes: {
+      grab: { distance: 200, line_linked: { opacity: 0.5 }},
+      push: { particles_nb: 4 }
+    }
+  }
+});
+
+// Function to open URL or show error
 function openInBlank() {
-  const url = document.getElementById("urlInput").value.trim();
+  const url = document.getElementById("urlInput").value;
   const error = document.getElementById("error");
 
-  if (!url || !isValidUrl(url)) {
-    error.textContent = "Please enter a valid URL!";
+  // Validate URL
+  if (!url.startsWith("http") && !url.startsWith("www")) {
+    error.textContent = "Invalid URL! Please enter a valid URL starting with http:// or https://";
     error.style.display = "block";
     return;
   }
 
+  // Reset the error message if the URL is valid
   error.style.display = "none";
 
-  const win = window.open("https://google.com/");
-  if (win) {
-    win.document.write(`
-      <html>
-        <head>
-          <title>Google Classroom</title>
-          <link rel="icon" href="https://crossy-cloak.vercel.app/ico.png" type="image/png">
-          <style>
-            html, body {
-              margin: 0;
-              height: 100%;
-              overflow: hidden;
-              background: black;
-            }
-            iframe {
-              width: 100%;
-              height: 100%;
-              border: none;
-            }
-          </style>
-        </head>
-        <body>
-          <iframe src="${url}" allow="fullscreen"></iframe>
-        </body>
-      </html>
-    `);
-    win.document.close();
+  // Check if the URL is a YouTube link
+  if (url.includes("youtube.com") || url.includes("youtu.be")) {
+    const videoId = extractYouTubeId(url);
+    if (videoId) {
+      openYouTubeEmbed(videoId);
+    } else {
+      error.textContent = "Invalid YouTube URL!";
+      error.style.display = "block";
+    }
   } else {
-    error.textContent = "Popup blocked! Please allow popups for this site.";
-    error.style.display = "block";
+    // Open other URLs in about:blank
+    openInNewTab(url);
   }
 }
 
-function isValidUrl(string) {
-  try {
-    const url = new URL(string);
-    return url.protocol === "http:" || url.protocol === "https:";
-  } catch (_) {
-    return false;
+// Extract video ID from YouTube URL
+function extractYouTubeId(url) {
+  let videoId = null;
+  const youtubeUrlPattern = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match = url.match(youtubeUrlPattern);
+
+  if (match) {
+    videoId = match[1];
+  }
+
+  return videoId;
+}
+
+// Open YouTube video in an embedded iframe inside about:blank
+function openYouTubeEmbed(videoId) {
+  const newWindow = window.open("about:blank", "_blank");
+
+  if (newWindow) {
+    newWindow.document.write(
+      `<!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Google Classroom</title>
+          <link rel="icon" href="https://your-github-username.vercel.app/ico.png" type="image/png">
+        </head>
+        <body style="margin:0;overflow:hidden;">
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </body>
+      </html>`
+    );
+  } else {
+    alert("Popup blocked. Please allow popups for this site.");
+  }
+}
+
+// Open any other URL in a new tab with an iframe
+function openInNewTab(url) {
+  const newWindow = window.open("about:blank", "_blank");
+
+  if (newWindow) {
+    newWindow.document.write(
+  `<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Google Classroom</title>
+      <link rel="icon" href="https://crossy-cloak.vercel.app/ico.png" type="image/png">
+    </head>
+    <body style="margin:0;overflow:hidden;">
+      <iframe ...></iframe>
+    </body>
+  </html>`
+);
+
+  } else {
+    alert("Popup blocked. Please allow popups for this site.");
   }
 }
