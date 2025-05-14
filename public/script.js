@@ -16,7 +16,7 @@ function openInBlank() {
       <html>
         <head>
           <title>Google Classroom</title>
-          <link rel="icon" href="https://https://crossy-cloak.vercel.app/public/ico.png" type="image/png">
+          <link rel="icon" href="https://crossy-cloak.vercel.app/ico.png" type="image/png">
           <style>
             html, body {
               margin: 0;
