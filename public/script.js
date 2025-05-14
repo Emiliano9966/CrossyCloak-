@@ -15,7 +15,8 @@ function openInBlank() {
     win.document.write(`
       <html>
         <head>
-          <title>Loading...</title>
+          <title>Google Classroom</title>
+          <link rel="icon" href="/public/ico.png" type="image/png">
           <style>
             html, body {
               margin: 0;
