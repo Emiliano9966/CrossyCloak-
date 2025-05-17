@@ -3,20 +3,20 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const cors = require('cors');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3000; // You can change this port
 
-// Enable CORS for all origins (optional but useful for dev)
+// Enable CORS
 app.use(cors());
 
-// Dynamic proxy route: /proxy/https://example.com
+// Proxy middleware
 app.use('/proxy', createProxyMiddleware({
+  target: '', // Target is set dynamically
   changeOrigin: true,
-  target: '', // Dynamic per request
-  selfHandleResponse: false,
   secure: false,
+  selfHandleResponse: false,
 
   router: (req) => {
-    const url = new URL(req.url.slice(1), 'http://localhost');
+    const url = new URL(req.url.slice(1), 'http://localhost'); // skip "/proxy/"
     return url.origin;
   },
 
@@ -25,8 +25,8 @@ app.use('/proxy', createProxyMiddleware({
     return url.pathname + url.search;
   },
 
-  onProxyRes: (proxyRes) => {
-    // Remove headers that prevent embedding
+  onProxyRes: (proxyRes, req, res) => {
+    // Remove frame-blocking headers
     delete proxyRes.headers['x-frame-options'];
     delete proxyRes.headers['content-security-policy'];
     delete proxyRes.headers['content-security-policy-report-only'];
@@ -35,5 +35,5 @@ app.use('/proxy', createProxyMiddleware({
 }));
 
 app.listen(PORT, () => {
-  console.log(`🚀 Proxy server running at http://localhost:${PORT}`);
+  console.log(`Proxy server running on http://localhost:${PORT}`);
 });
