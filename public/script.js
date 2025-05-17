@@ -97,23 +97,30 @@ function openYouTubeEmbed(videoId) {
 
 // Open any other URL in a new tab with an iframe
 function openInNewTab(url) {
+  const proxyUrl = "http://localhost:3000/proxy/" + url;
+
   const newWindow = window.open("about:blank", "_blank");
 
   if (newWindow) {
     newWindow.document.write(
-  `<!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Google Classroom</title>
-      <link rel="icon" href="https://crossy-cloak.vercel.app/ico.png" type="image/png">
-    </head>
-    <body style="margin:0;overflow:hidden;">
-      <iframe ...></iframe>
-    </body>
-  </html>`
-);
+      `<!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Proxied Page</title>
+        </head>
+        <body style="margin:0;overflow:hidden;">
+          <iframe src="${proxyUrl}" style="border:none;width:100vw;height:100vh;"></iframe>
+        </body>
+      </html>`
+    );
+    
+  } else {
+    alert("Popup blocked. Please allow popups for this site.");
+  }
+}
+
 
   } else {
     alert("Popup blocked. Please allow popups for this site.");
