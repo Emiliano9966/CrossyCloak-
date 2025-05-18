@@ -1,4 +1,4 @@
-// Initialize particles.js
+// Initialize particles.js 
 particlesJS('particles-js', {
   particles: {
     number: { value: 60 },
@@ -33,14 +33,17 @@ function openInBlank() {
   const url = document.getElementById("urlInput").value;
   const error = document.getElementById("error");
 
+  // Validate URL
   if (!url.startsWith("http") && !url.startsWith("www")) {
     error.textContent = "Invalid URL! Please enter a valid URL starting with http:// or https://";
     error.style.display = "block";
     return;
   }
 
+  // Reset the error message if the URL is valid
   error.style.display = "none";
 
+  // Check if the URL is a YouTube link
   if (url.includes("youtube.com") || url.includes("youtu.be")) {
     const videoId = extractYouTubeId(url);
     if (videoId) {
@@ -50,6 +53,7 @@ function openInBlank() {
       error.style.display = "block";
     }
   } else {
+    // Open other URLs in about:blank
     openInNewTab(url);
   }
 }
@@ -66,20 +70,28 @@ function openYouTubeEmbed(videoId) {
   const newWindow = window.open("about:blank", "_blank");
 
   if (newWindow) {
-    newWindow.document.write(
-      `<!DOCTYPE html>
+    newWindow.document.write(`
+      <!DOCTYPE html>
       <html lang="en">
         <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <title>Google Classroom</title>
-          <link rel="icon" href="/ico.png" type="image/png">
+          <link rel="icon" href="/ico.png" type="image/png" />
         </head>
         <body style="margin:0;overflow:hidden;">
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe 
+            width="100%" 
+            height="100%" 
+            src="https://www.youtube.com/embed/${videoId}" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
         </body>
-      </html>`
-    );
+      </html>
+    `);
+    newWindow.document.close();
   } else {
     alert("Popup blocked. Please allow popups for this site.");
   }
@@ -93,20 +105,21 @@ function openInNewTab(url) {
   const newWindow = window.open("about:blank", "_blank");
 
   if (newWindow) {
-    newWindow.document.write(
-      `<!DOCTYPE html>
+    newWindow.document.write(`
+      <!DOCTYPE html>
       <html lang="en">
         <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <title>Google Classroom</title>
-          <link rel="icon" href="/ico.png" type="image/png">
+          <link rel="icon" href="/ico.png" type="image/png" />
         </head>
         <body style="margin:0;overflow:hidden;">
           <iframe src="${proxyUrl}" style="border:none;width:100vw;height:100vh;"></iframe>
         </body>
-      </html>`
-    );
+      </html>
+    `);
+    newWindow.document.close();
   } else {
     alert("Popup blocked. Please allow popups for this site.");
   }
