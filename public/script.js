@@ -97,7 +97,8 @@ function openYouTubeEmbed(videoId) {
 
 // Open any other URL in a new tab with an iframe
 function openInNewTab(url) {
-  const proxyUrl = "http://localhost:3000/proxy/" + url;
+  const encodedUrl = encodeURIComponent(url);
+  const proxyUrl = `/api/proxy?url=${encodedUrl}`;
 
   const newWindow = window.open("about:blank", "_blank");
 
@@ -115,6 +116,11 @@ function openInNewTab(url) {
         </body>
       </html>`
     );
+  } else {
+    alert("Popup blocked. Please allow popups for this site.");
+  }
+}
+
     
   } else {
     alert("Popup blocked. Please allow popups for this site.");
