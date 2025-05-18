@@ -6,16 +6,23 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0'
+    const response = await fetch(url);
+
+    // Clone headers but exclude X-Frame and CSP
+    const headers = {};
+    response.headers.forEach((value, name) => {
+      if (
+        !["x-frame-options", "content-security-policy", "content-security-policy-report-only"].includes(name.toLowerCase())
+      ) {
+        headers[name] = value;
       }
     });
 
-    const contentType = response.headers.get("content-type");
     const body = await response.text();
+    res.setHeader("Content-Type", headers["content-type"] || "text/html");
+    res.setHeader("Access-Control-Allow-Origin", "*"); // Optional: Allow frontend requests
 
-    res.setHeader("Content-Type", contentType || "text/html");
+    // Send response without X-Frame or CSP headers
     res.status(response.status).send(body);
   } catch (error) {
     res.status(500).send("Proxy error: " + error.message);
