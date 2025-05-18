@@ -33,17 +33,14 @@ function openInBlank() {
   const url = document.getElementById("urlInput").value;
   const error = document.getElementById("error");
 
-  // Validate URL
   if (!url.startsWith("http") && !url.startsWith("www")) {
     error.textContent = "Invalid URL! Please enter a valid URL starting with http:// or https://";
     error.style.display = "block";
     return;
   }
 
-  // Reset the error message if the URL is valid
   error.style.display = "none";
 
-  // Check if the URL is a YouTube link
   if (url.includes("youtube.com") || url.includes("youtu.be")) {
     const videoId = extractYouTubeId(url);
     if (videoId) {
@@ -53,7 +50,6 @@ function openInBlank() {
       error.style.display = "block";
     }
   } else {
-    // Open other URLs in about:blank
     openInNewTab(url);
   }
 }
@@ -103,7 +99,8 @@ function openInNewTab(url) {
         <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Proxied Page</title>
+          <title>Google Classroom</title>
+          <link rel="icon" href="/ico.png" type="image/png">
         </head>
         <body style="margin:0;overflow:hidden;">
           <iframe src="${proxyUrl}" style="border:none;width:100vw;height:100vh;"></iframe>
