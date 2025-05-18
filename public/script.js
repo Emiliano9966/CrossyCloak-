@@ -22,7 +22,7 @@ particlesJS('particles-js', {
       onclick: { enable: true, mode: 'push' }
     },
     modes: {
-      grab: { distance: 200, line_linked: { opacity: 0.5 }},
+      grab: { distance: 200, line_linked: { opacity: 0.5 } },
       push: { particles_nb: 4 }
     }
   }
@@ -60,15 +60,9 @@ function openInBlank() {
 
 // Extract video ID from YouTube URL
 function extractYouTubeId(url) {
-  let videoId = null;
   const youtubeUrlPattern = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
   const match = url.match(youtubeUrlPattern);
-
-  if (match) {
-    videoId = match[1];
-  }
-
-  return videoId;
+  return match ? match[1] : null;
 }
 
 // Open YouTube video in an embedded iframe inside about:blank
@@ -83,7 +77,7 @@ function openYouTubeEmbed(videoId) {
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>Google Classroom</title>
-          <link rel="icon" href="https://your-github-username.vercel.app/ico.png" type="image/png">
+          <link rel="icon" href="/ico.png" type="image/png">
         </head>
         <body style="margin:0;overflow:hidden;">
           <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -95,7 +89,7 @@ function openYouTubeEmbed(videoId) {
   }
 }
 
-// Open any other URL in a new tab with an iframe
+// Open any other URL in a new tab with an iframe using proxy
 function openInNewTab(url) {
   const encodedUrl = encodeURIComponent(url);
   const proxyUrl = `/api/proxy?url=${encodedUrl}`;
@@ -116,18 +110,6 @@ function openInNewTab(url) {
         </body>
       </html>`
     );
-  } else {
-    alert("Popup blocked. Please allow popups for this site.");
-  }
-}
-
-    
-  } else {
-    alert("Popup blocked. Please allow popups for this site.");
-  }
-}
-
-
   } else {
     alert("Popup blocked. Please allow popups for this site.");
   }
