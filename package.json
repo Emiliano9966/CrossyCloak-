@@ -1,5 +1,9 @@
 {
-  "dependencies": {
-    "http-proxy-middleware": "^2.0.6"
-  }
+  "name": "crossy-cloak",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "dependencies": {}
 }
